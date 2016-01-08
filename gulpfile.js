@@ -15,10 +15,17 @@ var del = require('del');
 var gulp = require('gulp');
 var historyApiFallback = require('connect-history-api-fallback');
 var reload = browserSync.reload;
+var ghPages = require('gulp-gh-pages');
 
 // Clean output directory
 gulp.task('clean', function(cb) {
   del(['.tmp', 'dist'], cb);
+});
+
+gulp.task('deploy:gh', function() {
+  return gulp.src(['app/**/*','bower_components/**/*'])
+    .pipe(require('gulp-debug')())
+    .pipe(ghPages());
 });
 
 // Watch files for changes & reload
