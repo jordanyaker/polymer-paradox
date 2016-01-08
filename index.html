@@ -1,0 +1,69 @@
+<!doctype html>
+
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Example of Top Down Approach</title>
+
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="elements/example-data/example-data.html">
+  <link rel="import" href="elements/example-page/example-page.html">
+
+  <style>
+    body {
+      font-family: Verdana;
+      font-size: 12px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <template is="dom-bind">
+    <example-data data="{{ data }}"></example-data>
+    <example-page data="[[ data ]]"></example-page>
+  </template>
+
+
+  <div>
+    <h1>The Issue</h1>
+    <p>
+      Given top level data source (element inside the app/body), and a form
+      which manipulates that data; what approach should be taken to handle
+      promise/ event interaction.
+    </p>
+
+    <hr>
+
+    <h1>Challenge</h1>
+    <ul>
+      <li>Event must be fired from &lt;example-data-row/&gt;</li>
+      <li>Event is somehow redirected to &lt;example-data/&gt;</li>
+      <li>&lt;example-data-row/&gt; remains until promise is resolved</li>
+    </ul>
+    <hr>
+
+    <h1>Possible Solutions</h1>
+    <h2>Mediator Pattern</h2>
+    <ul>
+      <li>Whose responsibility is it to wire the event, how far does it bubble?</li>
+      <li>How does the promise then communicate back to the row.</li>
+    </ul>
+
+    <h2>Flux/Redux like Approach</h2>
+    <ul>
+      <li>Does the data represent the state of the application?
+        i.e have a deleted property on the data</li>
+      <li>Do we completely repaint the items or do we systematically update?</li>
+      <li>Does the model take on all ui state? i.e. loading states</li>
+    </ul>
+  </div>
+
+
+  <span id="browser-sync-binding"></span>
+</body>
+
+</html>
