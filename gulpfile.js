@@ -16,14 +16,34 @@ var gulp = require('gulp');
 var historyApiFallback = require('connect-history-api-fallback');
 var reload = browserSync.reload;
 var ghPages = require('gulp-gh-pages');
+var seq = require('run-sequence');
 
 // Clean output directory
 gulp.task('clean', function(cb) {
   del(['.tmp', 'dist'], cb);
 });
 
+gulp.task('copy:bower', function() {
+  return gulp.src('bower_components/**', {base: '.'})
+    .pipe(gulp.dest('.tmp'));
+});
+
+gulp.task('copy:app', function() {
+  return gulp.src('app/**/*')
+    .pipe(gulp.dest('.tmp'));
+});
+
 gulp.task('deploy:gh', function() {
-  return gulp.src(['app/**/*','bower_components/**/*'])
+  return seq(
+    'clean',
+    'copy:bower',
+    'copy:app',
+    'build:gh'
+  );
+});
+
+gulp.task('build:gh', function() {
+  return gulp.src('.tmp/**/*')
     .pipe(require('gulp-debug')())
     .pipe(ghPages());
 });
