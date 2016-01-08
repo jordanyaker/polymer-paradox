@@ -1,0 +1,52 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="example-data">
+  <template>
+    <style>
+      :host {
+        display: block;
+        color: #eee;
+        background: #4A4E69;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+    <p>&lt;example-data/&gt;</p>
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var data = [
+        { name: 'foo1', id: 1 },
+        { name: 'foo2', id: 12 },
+        { name: 'foo3', id: 123 }
+      ];
+
+      Polymer({
+        is: 'example-data',
+        properties: {
+          data: {
+            notify: true,
+            type: Array,
+            value: function() {
+              return data;
+            }
+          }
+        },
+
+        observers: [],
+
+        delete: function(data) {
+          return new Promise(function(resolve, reject) {
+            setTimeout(resolve, 500);
+          });
+        },
+
+        ready: function() {}
+      });
+    })();
+  </script>
+
+</dom-module>
