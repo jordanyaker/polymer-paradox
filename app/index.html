@@ -24,9 +24,17 @@
 <body>
 
   <template is="dom-bind">
-    <example-data data="{{ data }}"></example-data>
-    <example-page data="[[ data ]]"></example-page>
+    <example-data id="data" data="{{ data }}"></example-data>
+    <example-page data="[[ data ]]" on-delete="deleteFromData"></example-page>
   </template>
+
+  <script>
+    var tmpl = document.querySelector('template[is="dom-bind"]');
+
+    tmpl.deleteFromData = function(e) {
+      this.$.data.delete(e);
+    }
+  </script>
 
   <div>
     <h1>The Issue</h1>

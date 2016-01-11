@@ -38,10 +38,14 @@
 
         observers: [],
 
-        delete: function(data) {
-          return new Promise(function(resolve, reject) {
-            setTimeout(resolve, 500);
-          });
+        delete: function(e) {
+          var promise = e.detail.promise;
+          var index = this.data.indexOf(e.detail.model);
+
+          setTimeout(function() {
+            this.splice('data', index, 1);
+            promise.resolve({});
+          }.bind(this), 500);
         },
 
         ready: function() {}
