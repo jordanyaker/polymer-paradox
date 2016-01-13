@@ -36,11 +36,22 @@
           }
         },
 
-        observers: [],
+        observers: [
+          '_dataChanged(data.splices)'
+        ],
 
-        delete: function(data) {
+        _dataChanged: function() {
+          var deleteFn = this.delete;
+
+          // attach methods to each item
+          this.data.forEach(function(item) {
+            item.delete = deleteFn.bind(this, item);
+          });
+        },
+
+        delete: function(item) {
           return new Promise(function(resolve, reject) {
-            setTimeout(resolve, 500);
+            setTimeout(reject, 1000);
           });
         },
 

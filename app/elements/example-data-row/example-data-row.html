@@ -61,6 +61,7 @@
         is: 'example-data-row',
         properties: {
           deleting: {
+            reflectToAttribute: true,
             type: Boolean,
             value: false
           },
@@ -69,14 +70,12 @@
         },
 
         delete: function() {
-          /**
-           * delete logic goes here
-           * ----------------------
-           *
-           * this should set the deleting attribute and item should persist
-           * until the data deletion promise is resolved
-           */
-          console.log('delete logic, see comments');
+          this.deleting = true;
+
+          this.model.delete()
+            .catch(function() {
+              this.deleting = false;
+            }.bind(this));
         },
 
         ready: function() {}
