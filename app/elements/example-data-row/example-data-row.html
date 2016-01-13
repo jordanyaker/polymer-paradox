@@ -78,9 +78,10 @@
             });
           }.bind(this));
 
-          promise.then(function() {
-            console.log('deleted', arguments);
-          });
+          promise
+            .catch(function() {
+              this.deleting = false;
+            }.bind(this));
         },
 
         ready: function() {}

@@ -43,9 +43,8 @@
           var index = this.data.indexOf(e.detail.model);
 
           setTimeout(function() {
-            this.splice('data', index, 1);
-            promise.resolve({});
-          }.bind(this), 500);
+            promise.reject({});
+          }.bind(this), 1000);
         },
 
         ready: function() {}
