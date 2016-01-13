@@ -51,11 +51,11 @@
 
     <h1>Challenge</h1>
     <ul>
-      <li>Event must be fired from &lt;example-data-row/&gt;</li>
-      <li>Event is somehow redirected to &lt;example-data/&gt;</li>
-      <li>&lt;example-data-row/&gt; remains until promise is resolved</li>
+      <li>&lt;example-data-row/&gt; must initiate the deletion request</li>
+      <li>a deleting state must be set to the element (faded element)</li>
+      <li>&lt;example-data/&gt; has an artificial delay (setTimeout or promise) that fails</li>
+      <li>due to the failure the deleting state on &lt;example-data-row/&gt; is removed</li>
     </ul>
-    <hr>
 
     <h1>Possible Solutions</h1>
     <h2>Mediator Pattern</h2>
