@@ -1,0 +1,36 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="example-app-state">
+  <template>
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var state = {
+        page: {
+          isDeleting: false
+        }
+      };
+
+      Polymer({
+        is: 'example-app-state',
+        properties: {
+          state: {
+            notify: true,
+            type: Array,
+            value: function() {
+              return state;
+            }
+          }
+        },
+
+        observers: [],
+
+        ready: function() {}
+      });
+    })();
+  </script>
+
+</dom-module>

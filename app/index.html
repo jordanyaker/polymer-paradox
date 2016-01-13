@@ -10,6 +10,7 @@
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
   <link rel="import" href="elements/example-data/example-data.html">
+  <link rel="import" href="elements/example-app-state/example-app-state.html">
   <link rel="import" href="elements/example-page/example-page.html">
 
   <style>
@@ -24,9 +25,24 @@
 <body>
 
   <template is="dom-bind">
-    <example-data data="{{ data }}"></example-data>
-    <example-page data="[[ data ]]"></example-page>
-  </template>
+    <example-data id="data" data="{{ data }}" on-delete-failed="handleFailure"></example-data>
+    <example-app-state id="appState" state="{{ appState }}"></example-app-state>
+    <example-page state="[[ appState ]]" data="[[ data ]]" on-delete="deleteFromData">
+    </example-page>
+    </template>
+
+  <script>
+    var tmpl = document.querySelector('template[is="dom-bind"]');
+
+    tmpl.deleteFromData = function(e) {
+      this.$.data.delete(e);
+      this.$.appState.set('state.page.isDeleting', e.detail.model.id);
+    }
+
+    tmpl.handleFailure = function(e) {
+      this.$.appState.set('state.page.isDeleting', false);
+    };
+  </script>
 
   <div>
     <h1>The Issue</h1>

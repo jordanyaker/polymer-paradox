@@ -18,7 +18,10 @@
     <p>&lt;example-data-list/&gt;</p>
 
     <template is="dom-repeat" items="[[ data ]]">
-      <example-data-row model="[[ item ]]"></example-data-row>
+      <example-data-row
+        deleting$="{{ _isDeleting(state.page.isDeleting, item.id)}}"
+        model="[[ item ]]">
+      </example-data-row>
     </template>
 
   </template>
@@ -30,7 +33,17 @@
       Polymer({
         is: 'example-data-list',
         properties: {
-          data: Object
+          data: Object,
+
+          appState: {
+            type: Object
+          }
+        },
+
+        _isDeleting: function(deletingId, id) {
+          if (deletingId === id) {
+            return true;
+          }
         }
       });
     })();

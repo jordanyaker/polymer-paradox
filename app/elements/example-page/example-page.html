@@ -13,7 +13,7 @@
 
     <p>&lt;example-page/&gt;</p>
 
-    <example-data-list data="[[ data ]]"></example-data-list>
+    <example-data-list data="[[ data ]]" state="[[ state ]]"></example-data-list>
   </template>
 
   <script>
@@ -23,7 +23,9 @@
       Polymer({
         is: 'example-page',
         properties: {
-          data: Object
+          data: Object,
+
+          state: Object
         }
       });
     })();

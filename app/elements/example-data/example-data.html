@@ -39,9 +39,9 @@
         observers: [],
 
         delete: function(data) {
-          return new Promise(function(resolve, reject) {
-            setTimeout(resolve, 500);
-          });
+          this.async(function() {
+            this.fire('delete-failed', data)
+          }, 1000);
         },
 
         ready: function() {}
