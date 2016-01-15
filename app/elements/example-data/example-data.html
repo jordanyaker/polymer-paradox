@@ -19,9 +19,9 @@
       'use strict';
 
       var data = [
-        { name: 'foo1', id: 1 },
-        { name: 'foo2', id: 12 },
-        { name: 'foo3', id: 123 }
+        { name: 'foo1', id: 1, deleting: false },
+        { name: 'foo2', id: 12, deleting: false },
+        { name: 'foo3', id: 123, deleting: false }
       ];
 
       Polymer({
@@ -38,13 +38,20 @@
 
         observers: [],
 
-        delete: function(data) {
-          return new Promise(function(resolve, reject) {
-            setTimeout(resolve, 500);
-          });
+        delete: function(e) {
+          var model = e.model;
+          var index = data.indexOf(model);
+          var path = 'data.'+ index + '.deleting';
+          this.set(path, true);
+
+          setTimeout(function() {
+            this.set(path, false);
+          }.bind(this), 1000);
         },
 
-        ready: function() {}
+        ready: function() {
+          this.subscribe('delete', this.delete);
+        }
       });
     })();
   </script>

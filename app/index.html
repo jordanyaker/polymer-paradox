@@ -23,6 +23,42 @@
 
 <body>
 
+  <script>
+    (function() {
+      var subscriptions = {};
+
+      function createSub(namespace, scope){
+        var sub = {
+          listeners: [],
+          scope: scope
+        };
+        return (subscriptions[namespace] = sub);
+      }
+
+      Polymer.Base._addFeature({
+        publish: function(namespace, opts) {
+          var sub = subscriptions[namespace];
+
+          if (!sub) {
+            return;
+          }
+
+          sub.listeners.forEach(function(listener) {
+            listener.call(sub.scope, opts);
+          }, this);
+        },
+
+        subscribe: function(namespace, fn) {
+          var sub = subscriptions[namespace] || createSub(namespace, this);
+
+          if (typeof fn === 'function') {
+            sub.listeners.push(fn);
+          }
+        }
+      });
+    }());
+  </script>
+
   <template is="dom-bind">
     <example-data data="{{ data }}"></example-data>
     <example-page data="[[ data ]]"></example-page>
