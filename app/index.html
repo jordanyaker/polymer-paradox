@@ -9,24 +9,36 @@
 
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
-  <link rel="import" href="elements/example-data/example-data.html">
-  <link rel="import" href="elements/example-page/example-page.html">
+  <link rel="import" href="elements/example-app/example-app.html">
 
   <style>
     body {
       font-family: Verdana;
       font-size: 12px;
     }
-  </style>
 
+    section {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+    }
+  </style>
+  <script>
+    var firing = Polymer.Base.fire;
+    Polymer.Base.fire = function(type) {
+      if (type.constructor.name === 'String') {
+        console.log('EVENT: ' + type);
+      }
+
+      var event = firing.apply(this, arguments);
+      return event;
+    };
+  </script>
 </head>
 
 <body>
 
-  <template is="dom-bind">
-    <example-data data="{{ data }}"></example-data>
-    <example-page data="[[ data ]]"></example-page>
-  </template>
+  <example-app></example-app>
 
   <div>
     <h1>The Issue</h1>

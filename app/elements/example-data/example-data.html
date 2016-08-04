@@ -26,6 +26,7 @@
 
       Polymer({
         is: 'example-data',
+
         properties: {
           data: {
             notify: true,
@@ -38,13 +39,30 @@
 
         observers: [],
 
-        delete: function(data) {
-          return new Promise(function(resolve, reject) {
-            setTimeout(resolve, 500);
-          });
+        delete: function(e) {
+          var entry = e.detail;
+          var index = this.data.indexOf(entry);
+
+          if (index !== -1) {
+            // TODO: Flesh this out more with:
+            // * Update the state of the object to "deleting".
+            // * Create a hand-off to the internal REST/Socket element in order
+            //   to handle the proper saving of the object.
+            // * Update the state to "error"/clear the state in the event of
+            //   an error.
+            // * Set the error property of the object in the event of an
+            //   error.
+            // * Call splice in the event of a success.
+            this.splice('data', index, 1);
+          }
         },
 
-        ready: function() {}
+        ready: function() {
+          // window.addEventListener('example-data--load', this.load.bind(this));
+          // window.addEventListener('example-data--create', this.create.bind(this));
+          window.addEventListener('example-data--delete', this.delete.bind(this));
+          // window.addEventListener('example-data--update', this.update.bind(this));
+        }
       });
     })();
   </script>
