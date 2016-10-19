@@ -1,5 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../example-data-row/example-data-row.html">
+<link rel="import" href="../example-data-form/example-data-form.html">
+<link rel="import" href="../example-data-reload/example-data-reload.html">
 
 <dom-module id="example-data-list">
   <template>
@@ -20,7 +22,8 @@
     <template is="dom-repeat" items="[[ data ]]">
       <example-data-row model="[[ item ]]"></example-data-row>
     </template>
-
+    <example-data-form></example-data-form>
+    <example-data-reload></example-data-reload>
   </template>
 
   <script>

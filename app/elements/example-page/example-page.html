@@ -26,6 +26,14 @@
         is: 'example-page',
         properties: {
           data: Object
+        },
+
+        observers: [
+          '_listen(data.*)'
+        ],
+
+        _listen: function() {
+          // console.log(arguments);
         }
       });
     })();

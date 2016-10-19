@@ -19,9 +19,9 @@
       'use strict';
 
       var data = [
-        { name: 'foo1', id: 1 },
-        { name: 'foo2', id: 12 },
-        { name: 'foo3', id: 123 }
+        { name: 'foo1', id: 1, status: 'saved' },
+        { name: 'foo2', id: 12, status: 'saved' },
+        { name: 'foo3', id: 123, status: 'saved' }
       ];
 
       Polymer({
@@ -38,6 +38,21 @@
         },
 
         observers: [],
+
+        create: function(e) {
+          var model = e.detail;
+          this.push('data', model);
+        },
+
+        load: function(e) {
+          this.data = [];
+
+          this.async(function() {
+            data.forEach(function(item) {
+              this.push('data', item);
+            }, this);
+          }, 1000);
+        },
 
         delete: function(e) {
           var entry = e.detail;
@@ -58,8 +73,8 @@
         },
 
         ready: function() {
-          // window.addEventListener('example-data--load', this.load.bind(this));
-          // window.addEventListener('example-data--create', this.create.bind(this));
+          window.addEventListener('example-data--load', this.load.bind(this));
+          window.addEventListener('example-data--create', this.create.bind(this));
           window.addEventListener('example-data--delete', this.delete.bind(this));
           // window.addEventListener('example-data--update', this.update.bind(this));
         }

@@ -1,0 +1,86 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="example-data-form">
+  <style>
+    :host {
+      background: #E2B2A7;
+      display: block;
+      padding: 10px;
+      margin-bottom: 10px;
+      margin-left: 130px;
+      position: relative;
+    }
+
+    button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    button + button {
+      top: 28px;
+    }
+
+    p {
+      font-size: 10px;
+      margin: 0 10px 0 0;
+      position: absolute;
+      right: 100%;
+      text-align: right;
+      width: 130px;
+    }
+
+    div {
+      min-height: 18px;
+    }
+  </style>
+
+  <template>
+    <p>&lt;example-data-form&gt;</p>
+
+    <div>
+      <template is="dom-if" if="[[!isEditing]]">
+        <button on-click="_onNewClick">New</button>
+      </template>
+      <template is="dom-if" if="[[isEditing]]">
+        <button on-click="_onSaveClick">Save</button>
+        <button on-click="_onCancelClick">Cancel</button>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: "example-data-form",
+
+      properties: {
+        isEditing: {
+          computed: '_computeIsEditing(model)',
+          type: Boolean,
+          value: false
+        },
+
+        model: Object
+      },
+
+      _computeIsEditing: function(model) {
+        return !!model;
+      },
+
+      _onCancelClick: function() {
+        // Remove the binding.
+        this.model = null;
+      },
+
+      _onSaveClick: function() {
+        this.fire('example-data--create', this.model);
+        this.model = null;
+      },
+
+      _onNewClick: function() {
+        // Add the binding.
+        this.model = {};
+      }
+    });
+  </script>
+</dom-module>

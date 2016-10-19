@@ -32,7 +32,15 @@
       }
 
       var event = firing.apply(this, arguments);
+      // console.log(event.srcElement);
       return event;
+    };
+
+    var notifying = Polymer.Base._notifyPath;
+    Polymer.Base._notifyPath = function(path, value, fromAbove) {
+      console.log('NOTIFY: ' + path);
+
+      notifying.apply(this, arguments);
     };
   </script>
 </head>
